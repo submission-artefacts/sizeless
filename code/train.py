@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 plt.rcParams.update({'font.size': 28})
 import numpy as np
-import Helper
-import custom_data_loader as dl
+import helper
+import data_loader as dl
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, PowerTransformer, QuantileTransformer, \
     Normalizer
@@ -29,12 +29,6 @@ used_features = [
     'rel_userdiff_mean', 'rel_sysdiff_mean', 'rel_fsWrite_mean', 'rel_netByRx_mean',
     'heapUsed_mean', 'heapUsed_cov',  'mallocMem_cov']
 
-# used_features = [
-#     'userDiff_mean', 'sysDiff_mean', 'rel_ivContextSwitches_mean', 'rel_vContextSwitches_mean',
-#     'rel_userdiff_cov', 'rel_sysdiff_cov', 'rel_userdiff_mean', 'rel_sysdiff_mean',
-#     'rel_fsWrite_mean', 'rel_fsRead_mean', 'rel_netByRx_mean', 'rel_netByTx_mean',
-#     # 'rss_mean', 'rss_cov', 'mallocMem_cov'
-# ]
 
 # Train model
 models = {}
@@ -44,7 +38,7 @@ for memory_size in memory_sizes:
     # Get dataset
     dataset = dl.loadTrainingData().reset_index(drop=True)
     dataset = dataset[dataset['f_size'] == memory_size]
-    dataset = Helper.ratioY(dataset)
+    dataset = helper.ratioY(dataset)
     dataset.drop(['f_size'], axis=1, inplace=True)
 
     # Split dataset
@@ -71,8 +65,8 @@ for memory_size in memory_sizes:
     X = sc.fit_transform(X)
 
     # Build model
-    model = KerasRegressor(build_fn=Helper.getOptimizedModel, verbose=0)
-    model.fit(X, y, epochs=Helper.getOptimizedTrainingTime(), batch_size=32, verbose=1)
+    model = KerasRegressor(build_fn=helper.getOptimizedModel, verbose=0)
+    model.fit(X, y, epochs=helper.getOptimizedTrainingTime(), batch_size=32, verbose=1)
 
     models[memory_size] = model
     scs[memory_size] = sc

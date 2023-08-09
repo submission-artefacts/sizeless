@@ -4,7 +4,6 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 import os
 import numpy as np
-# import Helper
 
 
 def generateRelativeFeatures(df):
@@ -13,16 +12,8 @@ def generateRelativeFeatures(df):
     df['rel_sysdiff'] = df.apply(lambda row: row['sysDiff'] / 1000 / row['duration'], axis=1)
     df['rel_rss'] = df['rss']/292552704
     df['rel_heapUsed'] = df['heapUsed']/292552704
-    # df['rel_heapTotal'] = df['heapTotal']/292552704
-    # df['rel_external'] = df['external']/292552704
     df['rel_fsRead'] = df['fsRead']/df['duration']
     df['rel_fsWrite'] = df['fsWrite']/df['duration']
-    # df['rel_elMin'] = df['elMin']/df['duration']
-    # df['rel_elMax'] = df['elMax']/df['duration']
-    # df['rel_elMean'] = df['elMean']/df['duration']
-    # df['rel_heapPhysical'] = df['heapPhysical']/292552704
-    # df['rel_heapAvailable'] = df['heapAvailable']/292552704
-    # df['rel_bytecodeMetadataSize'] = df['bytecodeMetadataSize']/292552704
     df['rel_mallocMem'] = df['mallocMem']/292552704
     df['rel_netByRx'] = df['netByRx']/df['duration']
     df['rel_netPkgRx'] = df['netPkgRx']/df['duration']

@@ -8,8 +8,7 @@ import os
 import matplotlib.pyplot as plt
 plt.rcParams.update({'font.size': 28})
 import numpy as np
-import Helper
-import custom_data_loader as dl
+import data_loader as dl
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, PowerTransformer, QuantileTransformer, Normalizer
 from tensorflow.keras.wrappers.scikit_learn import KerasRegressor
@@ -30,13 +29,6 @@ used_features = [
     'userDiff_mean', 'sysDiff_mean', 'rel_vContextSwitches_mean', 'rel_userdiff_cov',
     'rel_userdiff_mean', 'rel_sysdiff_mean', 'rel_fsWrite_mean', 'rel_netByRx_mean',
     'heapUsed_mean', 'heapUsed_cov', 'mallocMem_cov']
-
-# used_features = [
-#     'userDiff_mean', 'sysDiff_mean', 'rel_ivContextSwitches_mean', 'rel_vContextSwitches_mean',
-#     'rel_userdiff_cov', 'rel_sysdiff_cov', 'rel_userdiff_mean', 'rel_sysdiff_mean',
-#     'rel_fsWrite_mean', 'rel_fsRead_mean', 'rel_netByRx_mean', 'rel_netByTx_mean',
-#     # 'rss_mean', 'rss_cov', 'mallocMem_cov'
-# ]
 
 # Load data for single repetition
 single_rep = dl.loadValidationData(data)
