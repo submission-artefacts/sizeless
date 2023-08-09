@@ -99,7 +99,7 @@ if __name__ == '__main__':
     # file_list = glob("../data/validation-data/**/*.csv", recursive=True)
     for _, filename in enumerate(file_list):
         i = i + 1
-        print(i, "/", 12000)
+        print(i, "/", 240)
         df = pd.read_csv(f"../data/training-data/{filename}")
         # df = pd.read_csv(filename)[:80]
         df = generateRelativeFeatures(df)
@@ -115,11 +115,11 @@ if __name__ == '__main__':
         single_rep.append(full)
     single_rep = pd.concat(single_rep)
 
-    single_rep.to_csv("../results/processed_training_data_custom.csv")
-    single_rep = pd.read_csv("../results/processed_training_data_custom.csv")
+    single_rep.to_csv("../data/processed_training_data.csv")
+    single_rep = pd.read_csv("../data/processed_training_data.csv")
     for index, row in single_rep.iterrows():
-        print(index)
-        print(single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 128)]['duration_mean'].iloc[0])
+        # print(index)
+        # print(single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 128)]['duration_mean'].iloc[0])
         single_rep.at[index, 'y_128'] = single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 128)]['duration_mean'].iloc[0]
         single_rep.at[index, 'y_256'] = single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 256)]['duration_mean'].iloc[0]
         single_rep.at[index, 'y_512'] = single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 512)]['duration_mean'].iloc[0]
@@ -129,4 +129,4 @@ if __name__ == '__main__':
         single_rep.at[index, 'y_4096'] = single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 4096)]['duration_mean'].iloc[0]
         single_rep.at[index, 'y_16384'] = single_rep[(single_rep['f_name'] == row['f_name']) & (single_rep['f_size'] == 16384)]['duration_mean'].iloc[0]
 
-    single_rep.to_csv("../results/processed_training_data_custom.csv")
+    single_rep.to_csv("../data/processed_training_data.csv")
